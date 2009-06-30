@@ -25,10 +25,10 @@ end
 
 get '/speech' do
   content_type "application/json"
-  RestClient.post("http://sepc495.se.cuhk.edu.hk/cuvocal/cuvocal.api", 
-    :speech_speed => 90, 
-    :response => 'json', 
-    :speed => options.speech_speed, 
-    :action => 'synthesize', 
-    :content => params[:content]).to_s
+  
+  # tdc
+  # RestClient.post("http://tdc.putonghuaonline.com/text2speech.php", :text => params[:content], :language => "1").to_s
+  
+  # cuhk
+  RestClient.post("http://sepc495.se.cuhk.edu.hk/cuvocal/cuvocal.api", :speech_speed => 90, :response => 'json', :speed => options.speech_speed, :action => 'synthesize', :content => params[:content]).to_s
 end
