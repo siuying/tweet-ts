@@ -20,6 +20,23 @@ text-decoration: underline;
 }
 
 /** END STANDARD HTML **/
+h1{
+  font-size: 48pt;
+  color: white;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h2 {
+  font-size: 10pt;
+  color: white;
+  margin: 0;
+  margin-top: -5px;
+  margin-left: 50px;
+  padding: 0;
+  text-align: center;
+}
 
 #content {
 width: 80%;
@@ -62,4 +79,9 @@ margin:20px auto;
 div.tweet .meta{  
 font-size: 8pt;
 text-align: right;
+}
+
+.footer li {
+list-style: none;
+text-indent: 0;
 }

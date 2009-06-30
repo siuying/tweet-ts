@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>Test TTS</title>
+<head><title>TweetToSpeech</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/base/base-min.css">
 <link rel="stylesheet" type="text/css" href="speech.css">
@@ -13,5 +13,22 @@
 <div id="content">
   <%= yield %>
 </div>
+
+<div class="footer">
+<ul>
+<li>Follow me @<a href="http://twitter.com/siuying">siuying</a></li>
+<li>Text to Speech engine from <a href="http://sepc495.se.cuhk.edu.hk/cuvocal/Default.aspx">CU Vocal</a></li>
+</ul>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-9569993-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 </body>
 </html>

@@ -24,10 +24,11 @@ error RestClient::Unauthorized do
 end
 
 get '/speech' do
-  RestClient.post "http://sepc495.se.cuhk.edu.hk/cuvocal/cuvocal.api", 
+  content_type "application/json"
+  RestClient.post("http://sepc495.se.cuhk.edu.hk/cuvocal/cuvocal.api", 
     :speech_speed => 90, 
     :response => 'json', 
     :speed => options.speech_speed, 
     :action => 'synthesize', 
-    :content => params[:content]
+    :content => params[:content]).to_s
 end
