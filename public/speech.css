@@ -1,0 +1,65 @@
+/** START STANDARD HTML **/
+body { 
+  font-family: Verdana, sans-serif; 
+	margin:20px 0px; 
+	padding:0px;
+	height:100%;
+  background: #FDB813;
+	text-align:center;
+}
+
+h1, h2, h3, h4 { font-family: "Trebuchet MS", Verdana, sans-serif;}
+
+a:link, a:visited {
+text-decoration: none;
+color: #214900;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+/** END STANDARD HTML **/
+
+#content {
+width: 80%;
+margin:0px auto;
+text-align:left;
+padding:15px;
+}
+
+.rounded {
+border: 5px solid #E4F6F8;
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+}
+
+.rounded:hover {
+border: 5px solid #EEF66C;
+}
+
+.userinput {
+background: #F17022;
+border: 5px solid #F68B1F;
+-webkit-border-radius: 20px;
+-moz-border-radius: 20px;
+text-align: left;
+color: #E4F6F8;
+padding: 10px;
+width: 720px;
+margin:20px auto;
+}
+
+div.tweet {  
+text-align: left;
+background-color: #62C2CC;
+color: #E4F6F8;
+padding: 10px;
+width: 720px;
+margin:20px auto;
+}
+
+div.tweet .meta{  
+font-size: 8pt;
+text-align: right;
+}

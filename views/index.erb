@@ -1,0 +1,26 @@
+<h1>TweetToSpeech</h1>
+
+<div id="result"></div>
+
+<div class="userinput">
+	<form>
+	See tweet for @<input type="text" id="text" name="user" value="<%= @user %>"/> <input type="submit" text="Go!" />
+	</form>
+</div>
+
+<% for tweet in @tweets %>
+<div class="tweet rounded">
+	<div class="text"><%=h tweet['text'] %></div>
+	<div class="meta">via <%= tweet['source'] %></div>	
+</div>
+<% end %>
+
+<script type="text/javascript">
+//<![CDATA[
+$(".tweet").bind("click", function(e){
+	var text = $(e.target).parent().children(".text").text();
+	if (text != "") Speech.speech(text);		
+	return false;
+})
+//]]>
+</script>
