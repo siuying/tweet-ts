@@ -1,6 +1,5 @@
 var Speech = {};
 
- 
 Speech.speech = function(content) {
   $.ajax({
       type: "GET",
@@ -9,10 +8,20 @@ Speech.speech = function(content) {
       data: ({content: content}),
       success: Speech.replacePlayer,
       error:   Speech.popupError
-    });  
+    });
+  $("#loading").show();
+  
+  if (!document.all) {
+    $("#loading").css("top", window.pageYOffset +"px")
+  } else {
+    $("#loading").css("top", document.documentElement.scrollTop +"px")
+  }
+  
+  return false;
 }
 
 Speech.replacePlayer = function(url) {
+  $("#loading").hide();
   var bgcolor  = "FFFFFF"
   var width    = "1"
   var height   = "1"
@@ -26,6 +35,7 @@ Speech.replacePlayer = function(url) {
 }
 
 Speech.popupError = function(msg) {
+  $("#loading").hide();
   alert(msg);
   return false;
 }
