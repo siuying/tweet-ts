@@ -1,11 +1,23 @@
 var Speech = {};
 
+ 
+Speech.speech = function(content) {
+  $.ajax({
+      type: "GET",
+      url: "/speech",
+      dataType: "text",
+      data: ({content: content}),
+      success: Speech.replacePlayer,
+      error:   Speech.popupError
+    });  
+}
+
 Speech.replacePlayer = function(url) {
   var bgcolor  = "FFFFFF"
   var width    = "1"
   var height   = "1"
   var flash = "<object type=\"application/x-shockwave-flash\" " +
-    "  data=\"/flash/dewplayer.swf?autoplay=1&son=" + url + "&amp;bgcolor=" + bgcolor + "\" width=\"" + width + "\" " +
+    "  data=\"/flash/dewplayer.swf?autoplay=1&son=" + encodeURI(url) + "&amp;bgcolor=" + bgcolor + "\" width=\"" + width + "\" " +
     "  height=\"" + height + "\"> " +
     "  <param name=\"movie\" value=\"/flash/dewplayer.swf?son=" + url + "&amp;bgcolor=" + bgcolor + "\" />" +
     "</object>"
@@ -13,18 +25,7 @@ Speech.replacePlayer = function(url) {
   return false;
 }
 
-Speech.speech = function(content) {
-  $.ajax({
-      type: "GET",
-      dataType: "json",
-      url: "/speech",
-      data: ({content: content}),
-      success: function(msg){
-        if (msg['id'] != -1) {
-          Speech.replacePlayer(msg["Path"] + msg["FileName"])
-        } else {
-          alert("Speech Server Error: " + msg["Message"]);
-        }
-      }
-    });  
+Speech.popupError = function(msg) {
+  alert(msg);
+  return false;
 }
