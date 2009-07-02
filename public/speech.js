@@ -60,9 +60,9 @@ var Loading = {
 
 // Play speech
 var Speech = {    
-  speechAll: function(messages) {
-    var message = messages.shift()
-    var myMessages = messages
+  speech: function(messages) {
+    var message     = $.isArray(messages) ? messages.shift() : messages
+    var myMessages  = $.isArray(messages) ? messages : []
 
     $.ajax({
         type: "GET",
@@ -77,7 +77,7 @@ var Speech = {
           // if there are remaining messages, speak them after this message is played
           Player.onStopped = function() {
             if (myMessages.length > 0) {
-              Speech.speechAll(myMessages);
+              Speech.speech(myMessages);
             }
           };          
         },
@@ -85,25 +85,6 @@ var Speech = {
       });
 
     Loading.loading(true);
-    return false;
-  },
-  
-  speech: function(content) {
-    $.ajax({
-        type: "GET",
-        url: "/speech",
-        dataType: "text",
-        data: ({content: content}),
-        success: Speech.play,
-        error:   Speech.onError
-      });
-    Loading.loading(true);
-    return false;
-  },
-  
-  play: function(url) {
-    Loading.loading(false);
-    Player.play(url);
     return false;
   },
 
