@@ -19,6 +19,15 @@ var Player = {
     }
   },
   
+  play: function(url) {
+    var player = document.getElementById("player_mp3_js");
+    if (url) {
+      player.SetVariable("method:setUrl", url);
+    }
+    player.SetVariable("method:play", "");
+    player.SetVariable("enabled", "true");  
+  },
+
   listeners: {
       onInit: function(){ this.position = 0 },
       onUpdate: function() {
@@ -31,16 +40,8 @@ var Player = {
         Player.bytesTotal = this.bytesTotal
         Player.bytesPercent = this.bytesPercent
       }
-  },
-  
-  play: function(url) {
-    var player = document.getElementById("player_mp3_js");
-    if (url) {
-      player.SetVariable("method:setUrl", url);
-    }
-    player.SetVariable("method:play", "");
-    player.SetVariable("enabled", "true");  
   }
+  
 };
 
 var Speech = {
