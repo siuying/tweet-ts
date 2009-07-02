@@ -13,6 +13,10 @@ helpers do
   end
 end
 
+configure do
+  set :speacker, Speech::CuhkSpeechSource.new
+end
+
 get '/' do
   @user = params[:user] || "siuying"
   tweets_json = RestClient.get "http://twitter.com/statuses/user_timeline.json?screen_name=#{u(@user)}", "User-Agent" => "SpeechTweet"
@@ -21,8 +25,7 @@ get '/' do
 end
 
 get '/speech' do
-  source = Speech::CuhkSpeechSource.new
-  source.speech(params[:content])
+  options.speacker.speech(params[:content])
 end
 
 error RestClient::Unauthorized do
