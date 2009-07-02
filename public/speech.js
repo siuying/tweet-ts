@@ -14,7 +14,7 @@ var Player = {
       var mp3Player = "<object class=\"playerpreview\" id=\"player_mp3_js\" type=\"application/x-shockwave-flash\" data=\"/flash/player_mp3_js.swf\" width=\"1\" height=\"1\">" +
           "<param name=\"movie\" value=\"/flash/player_mp3_js.swf\" />" +
           "<param name=\"AllowScriptAccess\" value=\"always\" />" +
-          "<param name=\"FlashVars\" value=\"listener=Player.listeners&amp;interval=500\" />" +
+          "<param name=\"FlashVars\" value=\"listener=Player.listeners&amp;interval=500&amp;useexternalinterface=1\" />" +
       "</object>";
       $("body").append(mp3Player);
     }
@@ -31,7 +31,12 @@ var Player = {
 
   listeners: {
       onInit: function(){ this.position = 0 },
-      onUpdate: function() {
+      onUpdate: function(e) {
+        if (Player.isPlaying == "true" && this.isPlaying == "false") {
+          try{
+            Player.onStopped();
+          }catch(e){}
+        }
         Player.isPlaying = this.isPlaying
         Player.url = this.url
         Player.volume = this.volume
@@ -41,8 +46,12 @@ var Player = {
         Player.bytesTotal = this.bytesTotal
         Player.bytesPercent = this.bytesPercent
       }
+  },
+
+  onStopped: function() {
+    console.log("stopped");
   }
-  
+
 };
 
 // Floating Loading Message
@@ -62,7 +71,31 @@ var Loading = {
 };
 
 // Play speech
-var Speech = {
+var Speech = {    
+  speechAll: function(messages) {
+    var message = messages.shift()
+    var myMessages = messages
+
+    $.ajax({
+        type: "GET",
+        url: "/speech",
+        dataType: "text",
+        data: ({content: message}),
+        success: function(url){
+          Loading.load(false);
+          Player.play(url);
+          Player.onStopped = function() {
+            if (myMessages.length > 0) {
+              Speech.speechAll(myMessages);
+            }
+          };          
+        },
+        error:   Speech.onError
+      });
+    Loading.load(true);
+    return false;
+  },
+  
   speech: function(content) {
     $.ajax({
         type: "GET",
@@ -72,11 +105,10 @@ var Speech = {
         success: Speech.play,
         error:   Speech.onError
       });
-
     Loading.load(true);
     return false;
   },
-
+  
   play: function(url) {
     Loading.load(false);
     Player.play(url);
