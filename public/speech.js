@@ -1,3 +1,4 @@
+// MP3 Player
 var Player = {
   isPlaying: false,
   url: "",
@@ -44,6 +45,23 @@ var Player = {
   
 };
 
+// Floating Loading Message
+var Loading = {
+  load: function(loading){
+    if (loading) {
+      $("#loading").show();
+      if (!document.all) {
+        $("#loading").css("top", window.pageYOffset +"px")
+      } else {
+        $("#loading").css("top", document.documentElement.scrollTop +"px")
+      }
+    } else {
+      $("#loading").hide();
+    }
+  }
+};
+
+// Play speech
 var Speech = {
   speech: function(content) {
     $.ajax({
@@ -51,28 +69,22 @@ var Speech = {
         url: "/speech",
         dataType: "text",
         data: ({content: content}),
-        success: Speech.replacePlayer,
-        error:   Speech.popupError
+        success: Speech.play,
+        error:   Speech.onError
       });
-    $("#loading").show();
 
-    if (!document.all) {
-      $("#loading").css("top", window.pageYOffset +"px")
-    } else {
-      $("#loading").css("top", document.documentElement.scrollTop +"px")
-    }
-
+    Loading.load(true);
     return false;
   },
-  
-  replacePlayer: function(url) {
-    $("#loading").hide();
+
+  play: function(url) {
+    Loading.load(false);
     Player.play(url);
     return false;
   },
-  
-  popupError: function(msg) {
-    $("#loading").hide();
+
+  onError: function(msg) {
+    Loading.load(false);
     alert(msg);
     return false;
   }
