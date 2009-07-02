@@ -1,13 +1,8 @@
 // MP3 Player
 var Player = {
   isPlaying: false,
-  url: "",
-  volume: "",
   position: "",
   duration: "",
-  bytesLoaded: "",
-  bytesTotal: "",
-  bytesPercent: "",
 
   init: function() {
     if ($("#player_mp3_js").length == 0) {
@@ -38,26 +33,19 @@ var Player = {
           }catch(e){}
         }
         Player.isPlaying = this.isPlaying
-        Player.url = this.url
-        Player.volume = this.volume
         Player.position = this.position
         Player.duration = this.duration
-        Player.bytesLoaded = this.bytesLoaded
-        Player.bytesTotal = this.bytesTotal
-        Player.bytesPercent = this.bytesPercent
       }
   },
-
   onStopped: function() {
-    console.log("stopped");
   }
 
 };
 
 // Floating Loading Message
 var Loading = {
-  load: function(loading){
-    if (loading) {
+  loading: function(isLoading){
+    if (isLoading) {
       $("#loading").show();
       if (!document.all) {
         $("#loading").css("top", window.pageYOffset +"px")
@@ -82,8 +70,11 @@ var Speech = {
         dataType: "text",
         data: ({content: message}),
         success: function(url){
-          Loading.load(false);
+          // if successfully resolve the message as MP3, play it
+          Loading.loading(false);
           Player.play(url);
+
+          // if there are remaining messages, speak them after this message is played
           Player.onStopped = function() {
             if (myMessages.length > 0) {
               Speech.speechAll(myMessages);
@@ -92,7 +83,8 @@ var Speech = {
         },
         error:   Speech.onError
       });
-    Loading.load(true);
+
+    Loading.loading(true);
     return false;
   },
   
@@ -105,18 +97,18 @@ var Speech = {
         success: Speech.play,
         error:   Speech.onError
       });
-    Loading.load(true);
+    Loading.loading(true);
     return false;
   },
   
   play: function(url) {
-    Loading.load(false);
+    Loading.loading(false);
     Player.play(url);
     return false;
   },
 
   onError: function(msg) {
-    Loading.load(false);
+    Loading.loading(false);
     alert(msg);
     return false;
   }
