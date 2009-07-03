@@ -4,17 +4,6 @@ var Player = {
   position: "",
   duration: "",
 
-  init: function() {
-    if ($("#player_mp3_js").length == 0) {
-      var mp3Player = "<object class=\"playerpreview\" id=\"player_mp3_js\" type=\"application/x-shockwave-flash\" data=\"/flash/player_mp3_js.swf\" width=\"1\" height=\"1\">" +
-          "<param name=\"movie\" value=\"/flash/player_mp3_js.swf\" />" +
-          "<param name=\"AllowScriptAccess\" value=\"always\" />" +
-          "<param name=\"FlashVars\" value=\"listener=Player.listeners&amp;interval=500&amp;useexternalinterface=1\" />" +
-      "</object>";
-      $("body").append(mp3Player);
-    }
-  },
-  
   play: function(url) {
     var player = document.getElementById("player_mp3_js");
     if (url) {
@@ -37,9 +26,9 @@ var Player = {
         Player.duration = this.duration
       }
   },
+
   onStopped: function() {
   }
-
 };
 
 // Floating Loading Message

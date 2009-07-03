@@ -20,6 +20,13 @@ Processing voice ... <img src="loading.gif" />
 </div>
 <% end %>
 
+<object id="player_mp3_js" class="playerpreview" height="1" width="1" data="/flash/player_mp3_js.swf" type="application/x-shockwave-flash">
+<param value="/flash/player_mp3_js.swf" name="movie"/>
+<param value="always" name="AllowScriptAccess"/>
+<param value="listener=Player.listeners&amp;interval=500" name="FlashVars"/>
+</object>
+
+
 <script type="text/javascript">
 //<![CDATA[
 $(document).ready(function () {
@@ -37,8 +44,6 @@ $(document).ready(function () {
 		Speech.speech(messages);
 		return false;
 	});
-
-	Player.init();
 });
 //]]>
 </script>
