@@ -14,7 +14,7 @@ helpers do
 end
 
 configure do
-  set :speacker, Speech::CuhkSpeechSource.new
+  set :speacker, Speech::ESpeekSpeechSource.new("http://speak.reality.hk/speech")
 end
 
 get '/' do
@@ -28,10 +28,18 @@ get '/speech' do
   options.speacker.speech(params[:content])
 end
 
+error SocketError do
+  "Failed to connect to speech server"
+end
+
 error RestClient::Unauthorized do
   "Not Authorized, user protected? "
 end
 
 error Speech::SpeechSourceError do
   "Speech server error "
+end
+
+error do
+  "Unexpected error"
 end

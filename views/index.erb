@@ -22,21 +22,23 @@ Processing voice ... <img src="loading.gif" />
 
 <script type="text/javascript">
 //<![CDATA[
-$(".tweet").bind("click", function(e){
-	var text = $(e.target).parent().children(".text").text();
-	if (text != "") Speech.speech(text);		
-	return false;
-})
+$(document).ready(function () {
+	$(".tweet").bind("click", function(e){
+		var text = $(e.target).parent().children(".text").text();
+		if (text != "") Speech.speech(text);		
+		return false;
+	})
 
-$("#playAll").bind("click", function(){
-	var messages = [];
-	$(".tweet > .text").each(function(n, ele){
-		messages.push($(ele).text())
+	$("#playAll").bind("click", function(){
+		var messages = [];
+		$(".tweet > .text").each(function(n, ele){
+			messages.push($(ele).text())
+		});
+		Speech.speech(messages);
+		return false;
 	});
-	Speech.speech(messages);
-	return false;
-});
 
-Player.init();
+	Player.init();
+});
 //]]>
 </script>
